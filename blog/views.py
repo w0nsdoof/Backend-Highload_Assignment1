@@ -2,8 +2,18 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from django.shortcuts import render, get_object_or_404
+
 from blog.models import Post
 from blog.serializers import PostSerializer
+
+def post_list_template(request):
+    posts = Post.objects.all()
+    return render(request, 'post_list.html', {'post_list': posts})
+
+def post_detail_template(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    return render(request, 'post_detail.html', {'post': post})
 
 @api_view(["GET", "POST"])
 def post_list(request):

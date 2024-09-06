@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ post.title }}</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>{{ post.author }}</p>
+    <p>{{ post.created_at }}</p>
+    <p>{{ post.updated_at }}</p>
+    <a href="{% url 'post_list_template' %}">Back to all posts</a>
+  </body>
+</html>
