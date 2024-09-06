@@ -1,6 +1,9 @@
 from django.urls import path
-from .views import hello_blog
+from blog.views import (
+    post_list, post_detail,
+)
 
 urlpatterns = [
-    path('', hello_blog, name='hello_blog'),
+    path("posts/", post_list),
+    path("posts/<int:pk>/", post_detail),
 ]
