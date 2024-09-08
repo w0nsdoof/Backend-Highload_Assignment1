@@ -2,10 +2,23 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render,redirect, get_object_or_404
 
 from blog.models import Post
 from blog.serializers import PostSerializer
+
+from .forms import PostForm
+
+def form(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save() 
+            return redirect('post_list_template')
+    else:
+        form = PostForm()
+
+    return render(request, 'form.html', {'form': form})
 
 def post_list_template(request):
     posts = Post.objects.all()
