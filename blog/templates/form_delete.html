@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Delete Post</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <h1>Are you sure you want to delete this post?</h1>
+    <p>{{ post.title }}</p>
+    <form method="POST">
+      <button type="submit">Delete</button>
+    </form>
+    <a href="{% url 'post_detail_template' post.pk %}">Cancel</a>
+  </body>
+</html>
