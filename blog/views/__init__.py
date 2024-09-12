@@ -3,9 +3,7 @@ from .fbv import (
 )
 
 from .forms import (
-    create_form,edit_form,delete_form
-)
-
-from .template import (
+    create_form,edit_form,delete_form,
+    register, user_profile,
     post_list_template, post_detail_template
 )
