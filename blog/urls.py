@@ -5,6 +5,7 @@ from blog.views import (
     post_detail_template, post_list_template, 
     create_form, edit_form, delete_form, 
     register, user_profile,
+    UserDetailAPIView, UserListCreateAPIView,
 )
 
 
@@ -25,4 +26,6 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
 
+    path('users/', UserListCreateAPIView.as_view()),
+    path('users/<int:pk>/', UserDetailAPIView.as_view()),
 ]

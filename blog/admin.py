@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Comment
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('text', 'author', 'post', 'created_at')
+    list_filter = ('created_at',)
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):

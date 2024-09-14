@@ -1,39 +1,39 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login
-
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponseForbidden
 
-from blog.models import Post
-from blog.forms import PostForm
+from blog.models import Post, Comment
+from blog.forms import PostForm, CommentForm
 from django.core.paginator import Paginator
 
-def user_profile(request):
-    if not request.user.is_authenticated:
-        return redirect('login')  
+def post_detail_template(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    comments = post.comments.all() 
 
-    posts = Post.objects.filter(author=request.user.username)
-    return render(request, 'registration/profile.html', {'posts': posts})
-
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('post_list_template')  
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)  
+                comment.author = request.user  
+                comment.post = post  
+                comment.save() 
+                return redirect('post_detail_template', pk=pk)
+        else:
+            return redirect('login')  
     else:
-        form = UserCreationForm()
+        form = CommentForm()
 
-    return render(request, 'registration/register.html', {'form': form})
+    return render(request, 'post_detail.html', {'post': post, 'form': form, 'comments': comments})
 
 @login_required()
 def create_form(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            form.save() 
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
             return redirect('post_list_template')
     else:
         form = PostForm()
