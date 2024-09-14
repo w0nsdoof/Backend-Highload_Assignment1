@@ -7,7 +7,7 @@
   <body>
     <h1>Edit Post: {{ post.title }}</h1>
     <form method="POST">
-      {{ form.as_p }}
+      {% csrf_token %} {{ form.as_p }}
       <button type="submit">Save Changes</button>
     </form>
     <a href="{% url 'post_detail_template' post.pk %}">Cancel</a>

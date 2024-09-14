@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ post.title }}</title>
+    <title>Post Details</title>
     <meta charset="utf-8" />
   </head>
   <body>
@@ -12,6 +12,7 @@
     <p><strong>Updated at:</strong> {{ post.updated_at }}</p>
 
     <h2>Comments</h2>
+    {% if comments %}
     <ul>
       {% for comment in comments %}
       <li>
@@ -22,11 +23,12 @@
       <li>No comments yet.</li>
       {% endfor %}
     </ul>
-
-    {% if user.is_authenticated %}
+    {% else %}
+    <p>No comments yet</p>
+    {% endif %} {% if user.is_authenticated %}
     <h3>Add a Comment</h3>
     <form method="POST">
-      {{ form.as_p }}
+      {% csrf_token %} {{ form.as_p }}
       <button type="submit">Post Comment</button>
     </form>
     {% else %}
