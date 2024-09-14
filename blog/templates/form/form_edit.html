@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PostForm</title>
+    <title>Edit Post</title>
     <meta charset="utf-8" />
   </head>
   <body>
-    <h1>Create a New Post</h1>
+    <h1>Edit Post: {{ post.title }}</h1>
     <form method="POST">
       {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Create Post</button>
+      <button type="submit">Save Changes</button>
     </form>
-    <a href="{% url 'post_list_template' %}">Back to all posts</a>
+    <a href="{% url 'post_detail' post.pk %}">Cancel</a>
   </body>
 </html>

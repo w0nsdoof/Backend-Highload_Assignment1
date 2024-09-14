@@ -13,15 +13,19 @@
         <h3>{{ post.title }}</h3>
         <p>{{ post.content }}</p>
         <p>Created on: {{ post.created_at }}</p>
-        <a href="{% url 'post_detail_template' post.pk %}">View Details</a>
-        <a href="{% url 'edit_form' post.pk %}"> Edit Post</a>
-        <a href="{% url 'delete_form' post.pk %}"> Delete Post</a>
+        <a href="{% url 'post_detail' post.pk %}">View Details</a> |
+        <a href="{% url 'edit_form' post.pk %}"> Edit Post</a> |
+        <a href="{% url 'delete_form' post.pk %}"> Delete Post</a> |
       </li>
       {% endfor %}
     </ul>
     {% else %}
     <p>You haven't created any posts yet.</p>
     {% endif %}
-    <a href="{% url 'logout'%}"> Logout </a>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit">logout</button>
+    </form>
+    <a href="{% url 'post_list' %}">Back to all posts</a>
   </body>
 </html>

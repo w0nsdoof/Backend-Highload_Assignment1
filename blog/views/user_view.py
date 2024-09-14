@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.shortcuts import render,redirect
+from django.views import View
 from blog.models import Post
 
 def user_profile(request):
@@ -21,3 +22,4 @@ def register(request):
         form = UserCreationForm()
 
     return render(request, 'registration/register.html', {'form': form})
+

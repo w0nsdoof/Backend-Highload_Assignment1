@@ -8,7 +8,7 @@ from .post_view import (
 )
 
 from .user_view import (
-    register, user_profile,
+    register, user_profile, logout
 )
 
 from .cbv import (

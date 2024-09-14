@@ -8,17 +8,13 @@ from blog.views import (
     UserDetailAPIView, UserListCreateAPIView,
 )
 
-
 urlpatterns = [
-    path("posts/", post_list),
-    path("posts/<int:pk>/", post_detail),
+    path("posts/", post_list_template,  name='post_list'),
+    path("posts/<int:pk>/", post_detail_template, name='post_detail'),
 
-    path("template/", post_list_template,  name='post_list_template'),
-    path("template/<int:pk>/", post_detail_template, name='post_detail_template'),
-
-    path('form/create/', create_form, name='create_form'),
-    path('form/edit/<int:pk>/', edit_form, name='edit_form'),
-    path('form/delete/<int:pk>/', delete_form, name='delete_form'),
+    path('posts/create/', create_form, name='create_form'),
+    path('posts/edit/<int:pk>/', edit_form, name='edit_form'),
+    path('posts/delete/<int:pk>/', delete_form, name='delete_form'),
 
     path('register/', register, name='register'),
     path('profile/', user_profile, name="profile"),
@@ -28,4 +24,7 @@ urlpatterns = [
 
     path('users/', UserListCreateAPIView.as_view()),
     path('users/<int:pk>/', UserDetailAPIView.as_view()),
+
+    path("backend/", post_list),
+    path("backend/<int:pk>/", post_detail),
 ]
